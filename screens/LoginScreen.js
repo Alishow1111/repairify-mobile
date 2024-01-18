@@ -50,7 +50,7 @@ export default function SignUp() {
       />
 
         <Button mode="contained" onPress={handleSubmit} style={styles.button}>
-          <Text style={styles.buttonText}>Sign Up</Text>
+          <Text style={styles.buttonText}>Login</Text>
         </Button>
       </View>
     </>
