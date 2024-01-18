@@ -5,7 +5,7 @@ import { signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../config";
 
 
-export default function SignUp() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   //const [buttonDisabled, setButtonDisabled] = useState(false);
