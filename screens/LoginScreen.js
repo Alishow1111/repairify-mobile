@@ -3,9 +3,10 @@ import {StyleSheet, View, Image, Text} from "react-native";
 import { TextInput, Button, Title} from 'react-native-paper';
 import { signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../config";
+import { useNavigationBuilder } from "@react-navigation/native";
 
 
-export default function Login() {
+export default function Login({navigation}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   //const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -17,6 +18,7 @@ export default function Login() {
         setEmail("");
         setPassword("");
         console.log("signed in")
+        navigation.navigate("Jobs")
     })
   }
 

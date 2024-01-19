@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/LoginScreen';
 import { PaperProvider } from 'react-native-paper';
+import Jobs from './screens/JobsScreen';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -14,6 +16,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Jobs" component={Jobs} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
