@@ -3,7 +3,7 @@ import {StyleSheet, View, Image, Text} from "react-native";
 import { TextInput, Button, Title, DataTable} from 'react-native-paper';
 
 
-export default function Jobs(){
+export default function Jobs({navigation}){
 
     return (
         <View style={styles.container}>
@@ -39,7 +39,7 @@ export default function Jobs(){
             </DataTable.Row>
             </DataTable>
 
-            <Button mode="contained" style={styles.button}>
+            <Button mode="contained" style={styles.button} onPress={() => navigation.navigate("CustomerDetails")}>
                 <Text style={styles.buttonText}>Add Job</Text>
             </Button>
 
