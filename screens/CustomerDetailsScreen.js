@@ -6,6 +6,14 @@ import { TextInput, Button, Title, DataTable} from 'react-native-paper';
 export default function CustomerDetails({navigation}){
 
     const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+    const [town, setTown] = useState("");
+    const [city, setCity] = useState("");
+    const [postcode, setPostcode] = useState("");
+    const [county, setCounty] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    
 
     return (
        <View style={styles.container}>
@@ -21,6 +29,88 @@ export default function CustomerDetails({navigation}){
           textColor="#ffffff"
           autoCapitalize="none"
         />
+
+        <TextInput
+          label="Street Address"
+          value={address}
+          onChangeText={(text) => setAddress(text)}
+          mode="outlined"
+          style={styles.input}
+          theme={{colors: {primary: '#949494', underlineColor: 'transparent'}}}
+          textColor="#ffffff"
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          label="Town"
+          value={town}
+          onChangeText={(text) => setTown(text)}
+          mode="outlined"
+          style={styles.input}
+          theme={{colors: {primary: '#949494', underlineColor: 'transparent'}}}
+          textColor="#ffffff"
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          label="City"
+          value={city}
+          onChangeText={(text) => setCity(text)}
+          mode="outlined"
+          style={styles.input}
+          theme={{colors: {primary: '#949494', underlineColor: 'transparent'}}}
+          textColor="#ffffff"
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          label="Post Code"
+          value={postcode}
+          onChangeText={(text) => setPostcode(text)}
+          mode="outlined"
+          style={styles.input}
+          theme={{colors: {primary: '#949494', underlineColor: 'transparent'}}}
+          textColor="#ffffff"
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          label="County"
+          value={county}
+          onChangeText={(text) => setCounty(text)}
+          mode="outlined"
+          style={styles.input}
+          theme={{colors: {primary: '#949494', underlineColor: 'transparent'}}}
+          textColor="#ffffff"
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          label="Email Address"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          mode="outlined"
+          style={styles.input}
+          theme={{colors: {primary: '#949494', underlineColor: 'transparent'}}}
+          textColor="#ffffff"
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          label="Telephone Number"
+          value={phone}
+          onChangeText={(text) => setPhone(text)}
+          mode="outlined"
+          style={styles.input}
+          theme={{colors: {primary: '#949494', underlineColor: 'transparent'}}}
+          textColor="#ffffff"
+          autoCapitalize="none"
+        />
+
+            <Button mode="contained" style={styles.button} onPress={() => navigation.navigate("ProductDetails")}>
+                <Text style={styles.buttonText}>Next</Text>
+            </Button>
+        
        </View>
     )
 }
@@ -28,6 +118,7 @@ export default function CustomerDetails({navigation}){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      paddingVertical: 10,
       paddingHorizontal: 16,
       backgroundColor: "black"
     },

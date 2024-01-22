@@ -50,6 +50,7 @@ export default function Jobs({navigation}){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      paddingVertical: 10,
       paddingHorizontal: 16,
       backgroundColor: "black"
     },
