@@ -3,11 +3,23 @@ import {StyleSheet, View, Image, Text} from "react-native";
 import { TextInput, Button, Title, DataTable} from 'react-native-paper';
 
 
-export default function ProductDetails({navigation}){
+export default function ProductDetails({route, navigation}){
+
+    const {newJobObject} = route.params;
+
+    console.log(newJobObject);
 
     const [manufacturer, setManufacturer] = useState("");
-    const [type, setType] = useState("");
+    const [productType, setProductType] = useState("");
     const [serial, setSerial] = useState("");
+
+    function nextScreen(){
+      newJobObject.manufacturer = manufacturer;
+      newJobObject.productType = manufacturer;
+      newJobObject.serial = manufacturer;
+
+      navigation.navigate('Labour', {newJobObject})
+    }
 
     
 
@@ -28,8 +40,8 @@ export default function ProductDetails({navigation}){
 
         <TextInput
           label="Product Type"
-          value={type}
-          onChangeText={(text) => setType(text)}
+          value={productType}
+          onChangeText={(text) => setProductType(text)}
           mode="outlined"
           style={styles.input}
           theme={{colors: {primary: '#949494', underlineColor: 'transparent'}}}
@@ -48,7 +60,7 @@ export default function ProductDetails({navigation}){
           autoCapitalize="none"
         />
 
-        <Button mode="contained" style={styles.button} onPress={() => navigation.navigate("Labour")}>
+        <Button mode="contained" style={styles.button} onPress={() => nextScreen()}>
             <Text style={styles.buttonText}>Next</Text>
         </Button>
         

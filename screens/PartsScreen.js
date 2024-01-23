@@ -3,10 +3,21 @@ import {StyleSheet, View, Image, Text} from "react-native";
 import { TextInput, Button, Title, DataTable} from 'react-native-paper';
 
 
-export default function Parts({navigation}){
+export default function Parts({route,navigation}){
+
+    const {newJobObject} = route.params;
+
+    console.log(newJobObject);
 
     const [part, setPart] = useState("");
     const [price, setPrice] = useState("");
+
+    function nextScreen(){
+      newJobObject.part = part;
+      newJobObject.price = price;
+
+      navigation.navigate('Quote', {newJobObject})
+    }
 
 
     return (
@@ -35,7 +46,7 @@ export default function Parts({navigation}){
           autoCapitalize="none"
         />
 
-        <Button mode="contained" style={styles.button} onPress={() => navigation.navigate("Quote")}>
+        <Button mode="contained" style={styles.button} onPress={() => nextScreen()}>
             <Text style={styles.buttonText}>Next</Text>
         </Button>
         

@@ -1,13 +1,33 @@
 import { useState } from "react";
 import {StyleSheet, View, Image, Text} from "react-native";
 import { TextInput, Button, Title, DataTable} from 'react-native-paper';
+import { db } from "../config";
+import { collection, addDoc } from "firebase/firestore";
 
 
-export default function Quote({navigation}){
+export default function Quote({route, navigation}){
+
+    const {newJobObject} = route.params;
+
+    console.log(newJobObject);
 
     const [partsCost, setPartsCost] = useState("");
     const [labourCost, setLabourCost] = useState("");
 
+    function submit(){
+      newJobObject.partsCost = partsCost;
+      newJobObject.labourCost = labourCost;
+
+      addDoc(collection(db, "jobs"), {newJobObject})
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((error) => {
+          console.error("Error adding document: ", error);
+      });
+
+      navigation.navigate('Jobs')
+    }
 
     return (
        <View style={styles.container}>
@@ -35,7 +55,7 @@ export default function Quote({navigation}){
           autoCapitalize="none"
         />
 
-        <Button mode="contained" style={styles.button} onPress={() => navigation.navigate("Jobs")}>
+        <Button mode="contained" style={styles.button} onPress={() => submit()}>
             <Text style={styles.buttonText}>Complete</Text>
         </Button>
         

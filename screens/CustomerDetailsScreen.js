@@ -13,6 +13,21 @@ export default function CustomerDetails({navigation}){
     const [county, setCounty] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+
+    function nextScreen(){
+      const newJobObject = {
+        name: name, 
+        address: address, 
+        town: town, 
+        city: city,
+        postcode: postcode, 
+        county: county, 
+        email: email,
+        phone: phone
+      };
+
+      navigation.navigate('ProductDetails', {newJobObject})
+    }
     
 
     return (
@@ -107,7 +122,7 @@ export default function CustomerDetails({navigation}){
           autoCapitalize="none"
         />
 
-            <Button mode="contained" style={styles.button} onPress={() => navigation.navigate("ProductDetails")}>
+            <Button mode="contained" style={styles.button} onPress={() => nextScreen()}>
                 <Text style={styles.buttonText}>Next</Text>
             </Button>
         
