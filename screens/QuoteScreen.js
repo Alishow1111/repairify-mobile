@@ -18,7 +18,7 @@ export default function Quote({route, navigation}){
       newJobObject.partsCost = partsCost;
       newJobObject.labourCost = labourCost;
 
-      addDoc(collection(db, "jobs"), {newJobObject})
+      addDoc(collection(db, "jobs"), newJobObject)
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
       })

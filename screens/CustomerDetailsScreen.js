@@ -1,6 +1,8 @@
 import { useState } from "react";
 import {StyleSheet, View, Image, Text} from "react-native";
 import { TextInput, Button, Title, DataTable} from 'react-native-paper';
+import { auth } from "../config";
+
 
 
 export default function CustomerDetails({navigation}){
@@ -16,6 +18,7 @@ export default function CustomerDetails({navigation}){
 
     function nextScreen(){
       const newJobObject = {
+        technician: auth.currentUser.uid,
         name: name, 
         address: address, 
         town: town, 

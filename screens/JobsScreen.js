@@ -1,9 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {StyleSheet, View, Image, Text} from "react-native";
 import { TextInput, Button, Title, DataTable} from 'react-native-paper';
+import { db, auth} from "../config";
+import { collection, doc, getDoc, getDocs, query, where} from "firebase/firestore";
+
 
 
 export default function Jobs({navigation}){
+
+  const [jobs, setJobs] = useState([]);
+
+  const user_id = auth.currentUser.uid;
+  console.log(user_id)
+
+  useEffect(() => {
+    const q = query(collection(db, "jobs"), where("technician", "==", user_id));
+    getDocs(q)
+    .then((snapshot) => {
+      snapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data())
+        setJobs((currentJobs) => {
+          return [...currentJobs, doc.data()];
+        })
+      })
+    })
+  }, [])
+
+  console.log(jobs)
+
+  // useEffect(() => {
+  //   console.log(jobs); // Log the updated jobs array
+  // }, [jobs]);
 
     return (
         <View style={styles.container}>
@@ -16,27 +43,20 @@ export default function Jobs({navigation}){
                 <DataTable.Title><Text style={styles.col_title}>Due</Text></DataTable.Title>
                 <DataTable.Title><Text style={styles.col_title}>Status</Text></DataTable.Title>
             </DataTable.Header>
+
+            {jobs.map((job) => {
+              return (
+                <DataTable.Row>
+                  <DataTable.Cell><Text style={styles.col_title}>1</Text></DataTable.Cell>
+                  <DataTable.Cell><Text style={styles.col_title}>{job.type}</Text></DataTable.Cell>
+                  <DataTable.Cell><Text style={styles.col_title}>{job.due}</Text></DataTable.Cell>
+                  <DataTable.Cell><Text style={styles.col_title}>Not Started</Text></DataTable.Cell>
+                </DataTable.Row>
+              )
+            })}
+      
+
             
-            <DataTable.Row>
-                <DataTable.Cell><Text style={styles.col_title}>1</Text></DataTable.Cell>
-                <DataTable.Cell><Text style={styles.col_title}>Repair</Text></DataTable.Cell>
-                <DataTable.Cell><Text style={styles.col_title}>20/01/24</Text></DataTable.Cell>
-                <DataTable.Cell><Text style={styles.col_title}>In Progress</Text></DataTable.Cell>
-            </DataTable.Row>
-
-            <DataTable.Row>
-                <DataTable.Cell><Text style={styles.col_title}>2</Text></DataTable.Cell>
-                <DataTable.Cell><Text style={styles.col_title}>Maintenance</Text></DataTable.Cell>
-                <DataTable.Cell><Text style={styles.col_title}>20/02/05</Text></DataTable.Cell>
-                <DataTable.Cell><Text style={styles.col_title}>Completed</Text></DataTable.Cell>
-            </DataTable.Row>
-
-            <DataTable.Row>
-                <DataTable.Cell><Text style={styles.col_title}>3</Text></DataTable.Cell>
-                <DataTable.Cell><Text style={styles.col_title}>Installation</Text></DataTable.Cell>
-                <DataTable.Cell><Text style={styles.col_title}>20/03/12</Text></DataTable.Cell>
-                <DataTable.Cell><Text style={styles.col_title}>Pending</Text></DataTable.Cell>
-            </DataTable.Row>
             </DataTable>
 
             <Button mode="contained" style={styles.button} onPress={() => navigation.navigate("CustomerDetails")}>
