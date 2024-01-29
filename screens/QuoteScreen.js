@@ -7,7 +7,7 @@ import { collection, addDoc } from "firebase/firestore";
 
 export default function Quote({route, navigation}){
 
-    const {newJobObject} = route.params;
+    const {newJobObject, setJobs} = route.params;
 
     console.log(newJobObject);
 
@@ -21,6 +21,9 @@ export default function Quote({route, navigation}){
       addDoc(collection(db, "jobs"), newJobObject)
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
+        setJobs((currentJobs) => {
+          return [...currentJobs, {id: docRef.id, data: newJobObject}]
+        })
       })
       .catch((error) => {
           console.error("Error adding document: ", error);

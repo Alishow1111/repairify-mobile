@@ -6,7 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function Labour({route, navigation}){
 
-    const {newJobObject} = route.params;
+    const {newJobObject, setJobs} = route.params;
 
     console.log(newJobObject);
 
@@ -29,7 +29,7 @@ export default function Labour({route, navigation}){
       newJobObject.type= selectedValue;
       newJobObject.due= String(date);
 
-      navigation.navigate('Parts', {newJobObject})
+      navigation.navigate('Parts', {newJobObject, setJobs})
     }
 
     const onChange = (event, selectedDate) => {

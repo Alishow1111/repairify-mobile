@@ -1,11 +1,14 @@
 import { useState } from "react";
 import {StyleSheet, View, Image, Text} from "react-native";
 import { TextInput, Button, Title, DataTable} from 'react-native-paper';
-import { auth } from "../config";
+import { auth, db} from "../config";
+import { collection, addDoc } from "firebase/firestore";
 
 
 
-export default function CustomerDetails({navigation}){
+export default function CustomerDetails({route, navigation}){
+
+    const {setJobs} = route.params;
 
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
@@ -17,8 +20,7 @@ export default function CustomerDetails({navigation}){
     const [phone, setPhone] = useState("");
 
     function nextScreen(){
-      const newJobObject = {
-        technician: auth.currentUser.uid,
+      const customerObject = {
         name: name, 
         address: address, 
         town: town, 
@@ -29,7 +31,18 @@ export default function CustomerDetails({navigation}){
         phone: phone
       };
 
-      navigation.navigate('ProductDetails', {newJobObject})
+      addDoc(collection(db, "customers"), customerObject)
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+        const newJobObject = {
+          technician: auth.currentUser.uid,
+          customerId: docRef.id
+        }
+        navigation.navigate('ProductDetails', {newJobObject, setJobs})
+      })
+      .catch((error) => {
+          console.error("Error adding document: ", error);
+      });
     }
     
 

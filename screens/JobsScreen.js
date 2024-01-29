@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import {StyleSheet, View, Image, Text} from "react-native";
-import { TextInput, Button, Title, DataTable} from 'react-native-paper';
+import {StyleSheet, View, Text, ScrollView} from "react-native";
+import {Button, Card} from 'react-native-paper';
 import { db, auth} from "../config";
-import { collection, doc, getDoc, getDocs, query, where} from "firebase/firestore";
+import { collection,getDocs, query, where} from "firebase/firestore";
+
 
 
 
@@ -20,7 +21,7 @@ export default function Jobs({navigation}){
       snapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data())
         setJobs((currentJobs) => {
-          return [...currentJobs, doc.data()];
+          return [...currentJobs, {id: doc.id, data: doc.data()}]
         })
       })
     })
@@ -28,38 +29,34 @@ export default function Jobs({navigation}){
 
   console.log(jobs)
 
-  // useEffect(() => {
-  //   console.log(jobs); // Log the updated jobs array
-  // }, [jobs]);
-
     return (
         <View style={styles.container}>
-            <Title style={styles.title}>Your Jobs</Title>
+            <Text style={styles.title}>Your Jobs</Text>
 
-            <DataTable style={styles.table}>
-            <DataTable.Header>
-                <DataTable.Title><Text style={styles.col_title}>Job ID</Text></DataTable.Title>
-                <DataTable.Title><Text style={styles.col_title}>Type</Text></DataTable.Title>
-                <DataTable.Title><Text style={styles.col_title}>Due</Text></DataTable.Title>
-                <DataTable.Title><Text style={styles.col_title}>Status</Text></DataTable.Title>
-            </DataTable.Header>
-
+            <ScrollView>
             {jobs.map((job) => {
               return (
-                <DataTable.Row>
-                  <DataTable.Cell><Text style={styles.col_title}>1</Text></DataTable.Cell>
-                  <DataTable.Cell><Text style={styles.col_title}>{job.type}</Text></DataTable.Cell>
-                  <DataTable.Cell><Text style={styles.col_title}>{job.due}</Text></DataTable.Cell>
-                  <DataTable.Cell><Text style={styles.col_title}>Not Started</Text></DataTable.Cell>
-                </DataTable.Row>
+                <Card style={{marginBottom: 20}}>
+                    <Card.Title title={job.id} subtitle={"Due: " + job.data.due} />
+                    <Card.Content>
+                        <Text variant="titleLarge">{job.data.type}</Text>
+                        <Text variant="bodyMedium">{job.data.description}</Text>
+                    </Card.Content>
+                    <View style={styles.buttonContainer}>
+                        <Button 
+                        mode="contained" 
+                        onPress={() => navigation.navigate("Job", {job})} 
+                        style={styles.button2}
+                        >
+                        View more
+                        </Button>
+                    </View>
+                </Card>
               )
             })}
-      
+            </ScrollView>
 
-            
-            </DataTable>
-
-            <Button mode="contained" style={styles.button} onPress={() => navigation.navigate("CustomerDetails")}>
+            <Button mode="contained" style={styles.button} onPress={() => navigation.navigate("CustomerDetails", {setJobs})}>
                 <Text style={styles.buttonText}>Add Job</Text>
             </Button>
 
@@ -74,8 +71,6 @@ const styles = StyleSheet.create({
       paddingHorizontal: 16,
       backgroundColor: "black"
     },
-    table: {
-    },
     input: {
       marginVertical: 8,
       backgroundColor: "#2c2c2c",
@@ -86,12 +81,22 @@ const styles = StyleSheet.create({
       backgroundColor: "white",
     },
     title : {
-      color: "white"
-    },
-    col_title: {
-        color: "white"
+      color: "white",
+      fontSize: 36,       // Increase the font size
+      fontWeight: 'bold', // Make the font bold
+      textAlign: 'center', // Center align text
+      marginVertical: 20,
     },
     buttonText: {
       color: "black"
-    }
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      margin: 10
+    },
+    button2: {
+      backgroundColor: 'black'
+    },
   });

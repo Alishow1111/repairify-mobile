@@ -5,7 +5,7 @@ import { TextInput, Button, Title, DataTable} from 'react-native-paper';
 
 export default function ProductDetails({route, navigation}){
 
-    const {newJobObject} = route.params;
+    const {newJobObject, setJobs} = route.params;
 
     console.log(newJobObject);
 
@@ -18,7 +18,7 @@ export default function ProductDetails({route, navigation}){
       newJobObject.productType = manufacturer;
       newJobObject.serial = manufacturer;
 
-      navigation.navigate('Labour', {newJobObject})
+      navigation.navigate('Labour', {newJobObject, setJobs})
     }
 
     

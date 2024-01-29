@@ -10,6 +10,7 @@ import Labour from './screens/LabourScreen';
 import ProductDetails from './screens/ProductDetailsScreen';
 import Parts from './screens/PartsScreen';
 import Quote from './screens/QuoteScreen.js';
+import Job from './screens/JobScreen.js';
 
 
 
@@ -27,6 +28,7 @@ export default function App() {
           <Stack.Screen name="ProductDetails" component={ProductDetails} />
           <Stack.Screen name="Parts" component={Parts} />
           <Stack.Screen name="Quote" component={Quote} />
+          <Stack.Screen name="Job" component={Job} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

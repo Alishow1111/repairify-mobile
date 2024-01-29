@@ -5,7 +5,7 @@ import { TextInput, Button, Title, DataTable} from 'react-native-paper';
 
 export default function Parts({route,navigation}){
 
-    const {newJobObject} = route.params;
+    const {newJobObject, setJobs} = route.params;
 
     console.log(newJobObject);
 
@@ -16,7 +16,7 @@ export default function Parts({route,navigation}){
       newJobObject.part = part;
       newJobObject.price = price;
 
-      navigation.navigate('Quote', {newJobObject})
+      navigation.navigate('Quote', {newJobObject, setJobs})
     }
 
 
